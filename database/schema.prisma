@@ -1,0 +1,111 @@
+// https://pris.ly/d/prisma-schema
+//
+// To generate a new version of a client
+//    > npx prisma generate
+//
+// To create the tables in the database (initially)
+//    > npx prisma migrate dev --name init
+// To update the tables in the database
+//    > npx prisma migrate dev --name your_commit_comment
+//
+// to execute the setup of dummy data:
+//    > ts-node -O '{\"module\":\"commonjs\"}' database/challenge_setup.ts
+
+// DATABASE CONNECTION
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_CONNECTION")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// MODEL
+model Customer {
+  id         String     @id @default(cuid())
+  address    Address    @relation(fields: [addressId], references: [id])
+  addressId  String
+  contracts  Contract[]
+  createdAt  DateTime   @default(now())
+  email      String     @unique
+  firstname  String
+  middlename String?
+  lastname   String
+  avatar     String     @db.Text
+  birthdate  DateTime
+  //   logins     Login[]
+  //   log        Log[]
+
+  @@index([email])
+}
+
+model Address {
+  id       String     @id @default(cuid())
+  street   String
+  number   String
+  postcode String
+  city     String
+  country  Country    @default(GERMANY)
+  user     Customer[]
+  contract Contract[]
+
+  @@unique([country, postcode, city, street, number])
+}
+
+// model Login {
+//   id         String    @id @default(cuid())
+//   datetime   DateTime  @default(now())
+//   customer   Customer? @relation(fields: [customerId], references: [id])
+//   customerId String?
+
+//   @@index([customerId])
+// }
+
+// model Log {
+//   id         String   @id @default(cuid())
+//   datetime   DateTime @default(now())
+//   customer   Customer @relation(fields: [customerId], references: [id])
+//   customerId String
+//   action     String
+//   value      String
+
+//   @@index([customerId])
+// }
+
+model Contract {
+  id            String        @id @default(cuid())
+  address       Address       @relation(fields: [addressId], references: [id])
+  addressId     String
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  customerId    String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?
+  type          CONTRACT_TYPE
+  currency      Currency      @default(EUR)
+  price         Float
+  deductible    Float
+  paymentPeriod PaymentPeriod
+  details       Json
+
+  @@index([customerId])
+}
+
+enum Currency {
+  EUR
+}
+
+enum Country {
+  GERMANY
+}
+
+enum PaymentPeriod {
+  YEAR
+  MONTH
+}
+
+enum CONTRACT_TYPE {
+  HOME_OWNER
+  HOME_CONTENT
+  BIKE
+}
