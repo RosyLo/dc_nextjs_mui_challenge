@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Container from '@mui/material/Container';
 import { Typography } from '@mui/material'
-import Header from '../components/dc/header';
+import Header from '../components/layout/header';
 import { getCustomer } from './api/customer/profile/[id]';
 
 import { GetServerSideProps } from 'next'
@@ -29,10 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Home: NextPage<HomeProps> = ({ title, subtitle, user }: HomeProps) => {
+const Home: NextPage<HomeProps> = ({ user }) => {
   return (
     <>
-      <Header title={title} subtitle={subtitle} user={user} />
+      <Header user={user} />
       <Container>
         <Container sx={{ m: 2, mt: 6 }}>
           <Typography variant="h2" align="center">

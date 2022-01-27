@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import ButtonBase from '@mui/material/ButtonBase';
+import Divider from '@mui/material/Divider';
 
 type HeaderProps = {
     title?: string,
@@ -64,8 +65,7 @@ export default function Header({ title, subtitle, description, user }: HeaderPro
                     </Grid>
                 </Grid>
             </Box>
-            <hr />
-
+            <Divider />
         </Container>
     );
 }
