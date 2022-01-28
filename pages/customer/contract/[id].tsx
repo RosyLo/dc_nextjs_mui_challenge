@@ -75,6 +75,28 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
     const [period, setPeriod] = useState(paymentPeriod);
     const [isLoading, setIsLoading] = useState(false);
 
+    const onSubmit = async (formData) => {
+
+        try{
+            await fetch(`/api/customer/contracts/update?id=${contractId}&pp=${formData.paymentPeriod}`, {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify({
+                    contractPrice
+                })
+            })
+
+            setEditMode(false);
+            setPeriod(formData.paymentPeriod);
+        }
+        //todo : dialog for warning
+        catch(error) {
+            console.error('error', error)
+        }
+        finally {
+        }
+    }
+
     const getContractDetails = (type: string) => {
         
         const getDetailGroup = () => {
@@ -152,7 +174,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
                     </Image>
                 </Box>
                     <Box sx={{p: '20px'}}>
-                        <form onSubmit={handleSubmit()}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                         <Card sx={{width: '800px', marginBottom: '20px'}}>
                             <Stack spacing={3} sx={{ p: '20px'}}>
                                 <Typography variant="h3" color="primary.main">Main  Information</Typography>
