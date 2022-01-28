@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import type { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { Contract } from '@prisma/client';
@@ -18,7 +19,7 @@ import homeOwner from '../../../components/asset/home_owner@2x.png';
 import Loading from '../../../components/common/loading';
 import { Create, BookmarkBorder } from '@mui/icons-material';
 import { Block } from '../../../components/common/block';
-import { useForm } from 'react-hook-form';
+import PaymentPeriod from '../../../components/common/paymentPeriod';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
@@ -112,31 +113,6 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
       setPeriod(formData.paymentPeriod);
     } catch (error) {
       //todo : dialog for warning
-      console.error('error', error);
-    } finally {
-    }
-  };
-
-  const handlePeriodChange = async (
-    paymentPeriod: string,
-    price: number,
-    updatePaymentPeriod: string
-  ) => {
-    try {
-      const result = await fetch('/api/customer/contract/calc_price', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({
-          paymentPeriod,
-          price,
-          updatePaymentPeriod,
-        }),
-      }).then((res) => res.json());
-
-      setContractPrice(result.price);
-      setPeriod(updatePaymentPeriod);
-    } catch (error) {
-      //todo: dialog warns
       console.error('error', error);
     } finally {
     }
@@ -248,20 +224,13 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
                   <Box>
                     <Typography variant="body1">Payment Period</Typography>
                     {editMode ? (
-                      <NativeSelect
-                        inputProps={register('paymentPeriod')}
-                        defaultValue={period}
-                        onChange={(e) => {
-                          handlePeriodChange(
-                            period,
-                            contractPrice,
-                            e.target.value
-                          );
-                        }}
-                      >
-                        <option value={'MONTH'}>Month</option>
-                        <option value={'YEAR'}>Year</option>
-                      </NativeSelect>
+                      <PaymentPeriod
+                        register={register}
+                        period={period}
+                        contractPrice={contractPrice}
+                        setContractPrice={setContractPrice}
+                        setPeriod={setPeriod}
+                      />
                     ) : (
                       <Typography variant="body2">{period}</Typography>
                     )}
