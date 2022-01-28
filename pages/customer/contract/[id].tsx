@@ -99,7 +99,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
   const onSubmit = async (formData) => {
     try {
       await fetch(
-        `/api/customer/contracts/update?id=${contractId}&pp=${formData.paymentPeriod}`,
+        `/api/customer/contract/update?id=${contractId}&pp=${formData.paymentPeriod}`,
         {
           method: 'POST',
           mode: 'cors',
