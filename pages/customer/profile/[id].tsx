@@ -254,6 +254,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
           <Title>{displayContractGroup.typeName}</Title>
           <Grid container sx={{ marginTop: '20px' }}>
             {displayContractGroup.data.map((contract) => {
+              const { typeName, paymentPeriod, price } = contract;
               return (
                 <Grid item key={cardId}>
                   <Link href={`/../customer/contract/${contract.id}`}>
@@ -279,7 +280,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
                           {/* todo: naming by customer */}
-                          {contract.typeName}
+                          {typeName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                           address
@@ -289,17 +290,17 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
                           direction="row"
                           divider={<Divider orientation="vertical" flexItem />}
                         >
-                          <Stack spacing={2}>
+                          <Stack spacing={2} sx={{ width: '105px' }}>
                             <Typography variant="body2">Type</Typography>
-                            <Box>{contract.typeName}</Box>
+                            <Box>{typeName}</Box>
                           </Stack>
-                          <Stack spacing={2}>
+                          <Stack spacing={2} sx={{ width: '60px' }}>
                             <Typography variant="body2">Payment</Typography>
-                            <Box>{contract.paymentPeriod}</Box>
+                            <Box>{paymentPeriod}</Box>
                           </Stack>
                           <Stack spacing={2}>
                             <Typography variant="body2">Price</Typography>
-                            <Box>{roundToTwo(contract.price)}</Box>
+                            <Box>{roundToTwo(price)}</Box>
                           </Stack>
                         </Stack>
                       </CardContent>
