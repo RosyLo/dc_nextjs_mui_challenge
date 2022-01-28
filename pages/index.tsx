@@ -1,21 +1,20 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
-import { Typography } from '@mui/material'
+import { Typography } from '@mui/material';
 import Header from '../components/layout/header';
 import { getCustomer } from './api/customer/profile/[id]';
 
-import { GetServerSideProps } from 'next'
-
+import { GetServerSideProps } from 'next';
 
 type HomeProps = {
-  title?: string,
-  subtitle?: string,
-  description?: string,
-  user?: object
-}
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  user?: object;
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // You will notice, that there is not login required. 
+  // You will notice, that there is not login required.
   // We hardcoded jane for demo purposes :-)
   // Don't worry about login.
   let customer = await getCustomer();
@@ -23,11 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       user: {
         id: customer?.id,
-        avatar: customer?.avatar
-      }
-    }
-  }
-}
+        avatar: customer?.avatar,
+      },
+    },
+  };
+};
 
 const Home: NextPage<HomeProps> = ({ user }) => {
   return (
@@ -39,12 +38,13 @@ const Home: NextPage<HomeProps> = ({ user }) => {
             Welcome to DwellersClub!
           </Typography>
           <Typography variant="h4" align="center">
-            Please click on your avatar at the top right to display your profile.
+            Please click on your avatar at the top right to display your
+            profile.
           </Typography>
         </Container>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

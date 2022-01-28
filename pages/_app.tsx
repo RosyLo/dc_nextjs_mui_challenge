@@ -1,15 +1,15 @@
 import '../styles/globals.css';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider, Theme } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import type { AppProps, AppContext } from 'next/app';
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   palette: {
-    primary: { main: '#ff5044', contrastText: '#ffffff'},
-    secondary: { main: '#626262', },
-    error: { main: '#ff1100', },
+    primary: { main: '#ff5044', contrastText: '#ffffff' },
+    secondary: { main: '#626262' },
+    error: { main: '#ff1100' },
     info: {
-      main: '#ffffff'
+      main: '#ffffff',
     },
   },
   typography: {
@@ -24,15 +24,19 @@ const theme = createTheme({
     body2: {
       fontWeight: 400,
       fontSize: '0.875rem',
-    }
-  }
+    },
+  },
+  zIndex: {
+    drawer: 1200,
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Component {...pageProps} />
-    </ThemeProvider>)
+    </ThemeProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

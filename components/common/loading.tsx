@@ -1,21 +1,19 @@
 import { FC } from 'react';
-import { CircularProgress, Backdrop} from '@mui/material';
+import { CircularProgress, Backdrop } from '@mui/material';
 
-
-type LoadingProps = {
-    isLoading: boolean
+interface LoadingProps {
+  isLoading: boolean;
 }
 
-const Loading:FC<LoadingProps> = ({isLoading}) => {
-
-return (
+const Loading: FC<LoadingProps> = ({ isLoading }) => {
+  return (
     <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isLoading}
-  >
-    <CircularProgress color="inherit" />
-  </Backdrop>
-)
-}
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={isLoading}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
+};
 
 export default Loading;
