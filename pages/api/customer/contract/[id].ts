@@ -4,7 +4,6 @@ import { PrismaClient, Contract } from '@prisma/client';
 const prisma = new PrismaClient()
 
 export const getContractById = (id: string) => {
-    console.log(id);
     return prisma.contract.findFirst({
         where: { id: id }
     })
