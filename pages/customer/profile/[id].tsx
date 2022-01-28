@@ -29,6 +29,7 @@ import {
   MapsHomeWork,
 } from '@mui/icons-material';
 import { getCustomer } from '../../api/customer/profile/[id]';
+import { getAddress } from '../../api/customer/profile/address';
 import Header from '../../../components/layout/header';
 import { Block } from '../../../components/common/block';
 import { getAllContracts } from '../../api/customer/contract/index';
@@ -95,6 +96,7 @@ const getContractGroups = (contracts: Contract[]) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const customer = await getCustomer();
+  const address = await getAddress(customer?.addressId);
   const contracts = await getAllContracts(customer?.id);
   const contractGroup = getContractGroups(contracts);
 
@@ -111,6 +113,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           year: 'numeric',
         }),
         email: customer?.email,
+        address,
       },
       contracts: {
         homeOwnerContracts: contractGroup.homeOwnerContracts,
@@ -130,7 +133,8 @@ enum InsuranceGroup {
 const User: NextPage<UserProps> = ({ user, contracts }) => {
   const cardId = `${uuidv4()}`;
 
-  const { avatar, firstname, lastname, birthdate, email } = user;
+  const { avatar, firstname, lastname, birthdate, email, address } = user;
+  const { number, street, city, country, postcode } = address;
   const { homeOwnerContracts, homeContentContracts, bikeContracts } = contracts;
 
   const [choosedInsuranceGroup, setChoosedInsuranceGroup] = useState(
