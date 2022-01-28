@@ -97,6 +97,28 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
         }
     }
 
+    const handlePeriodChange = async (paymentPeriod: string, price: number, updatePaymentPeriod: string) => {
+        try{
+            const result = await fetch('/api/customer/contract/calc_price', {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify({
+                    paymentPeriod,
+                    price,
+                    updatePaymentPeriod
+                })
+            }).then((res) =>res.json())
+    
+            setContractPrice(result.price)
+        }
+        catch(error) {
+            //todo: dialog warns 
+            console.error('error', error)
+        }
+        finally {
+        }
+    }
+
     const getContractDetails = (type: string) => {
         
         const getDetailGroup = () => {
@@ -194,8 +216,11 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
                                     </Box>
                                 <Box>
                                     <Typography variant="body1">Payment Period</Typography>
-                                    <Typography variant="body2">{editMode ? (
-                                        <NativeSelect>
+                                    <Typography variant="body2">{editMode ? (<NativeSelect inputProps={register('paymentPeriod')} defaultValue={period} onChange={(e) => {
+                                        if (period !== e.target.value) {
+                                            handlePeriodChange(period, contractPrice, e.target.value);
+                                        }
+                                    }}>
                                             <option value={'MONTH'}>Month</option>
                                             <option value={'YEAR'}>Year</option>
                                         </NativeSelect>) : (<Typography variant="body2">{period}</Typography>)}</Typography>
