@@ -78,7 +78,6 @@ const getContractGroups = (contracts: Contract[]) => {
         homeOwnerData.data?.push({ ...contract, typeName: 'Home Owner' });
         break;
       case 'HOME_CONTENT':
-        console.log('in', contract);
         homeContentData.data?.push({ ...contract, typeName: 'Home Content' });
         break;
       case 'BIKE':
@@ -263,7 +262,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
                         padding: '15px',
                         boxShadow: '5px 5px 5px rgba(0, 0, 0, 0.25)',
                         '&:hover': {
-                          cursor: pointer,
+                          cursor: 'pointer',
                         },
                       }}
                     >
