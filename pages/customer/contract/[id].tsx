@@ -75,6 +75,69 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
     const [period, setPeriod] = useState(paymentPeriod);
     const [isLoading, setIsLoading] = useState(false);
 
+    const getContractDetails = (type: string) => {
+        
+        const getDetailGroup = () => {
+            
+            const { floors, roof_type, square_meter, jewelry, max_value, brand, electric, bikeValue, frameSizeInInch } = details;
+        
+            switch(type) {
+                case 'HOME_OWNER':
+                    return {
+                        firstItemT: 'Floors',
+                        firstItemV: floors,
+                        secondItemT: 'Roof Type',
+                        secondItemV: roof_type,
+                        thirdItemT: 'Square Meter',
+                        thirdItemV: square_meter,
+                    };
+                case 'HOME_CONTENT':
+                    return {
+                        firstItemT: 'Has Jewelry',
+                        firstItemV: jewelry ? 'true' : 'false',
+                        secondItemT: 'Max Value',
+                        secondItemV: max_value,
+                        thirdItemT: 'Square Meter ',
+                        thirdItemV: square_meter,
+                    };
+                case 'BIKE':
+                    return {
+                        firstItemT: 'Brand',
+                        firstItemV: brand,
+                        secondItemT: 'Electric',
+                        secondItemV: electric,
+                        thirdItemT: 'BikeValue',
+                        thirdItemV: bikeValue,
+                        fourthItemT: 'Frame Size In Inch',
+                        fourthItemV: frameSizeInInch,
+                    };
+                default: 
+                return null
+            }
+        }
+
+        let detail = getDetailGroup();
+    
+        return (
+            <> 
+            <Box>
+                <Typography variant="body1">{detail?.firstItemT}</Typography>
+                <Typography variant="body2">{detail?.firstItemV}</Typography>
+            </Box>
+            <Box>
+                <Typography variant="body1">{detail?.secondItemT}</Typography>
+                <Typography variant="body2">{detail?.secondItemV}</Typography>
+            </Box>
+            <Box>
+                <Typography variant="body1">{detail?.thirdItemT}</Typography>
+                <Typography variant="body2">{detail?.thirdItemV}</Typography>
+            </Box>
+            </>
+        )
+
+
+    }
+
     return (
         <Container>
             <Header user={user} />
@@ -126,6 +189,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
                             </Stack>
                             <Stack spacing={3} sx={{ p: '20px'}}>
                                 <Typography variant="h3" color="primary.main">Detail Information</Typography>
+                                {getContractDetails(type)}
                             </Stack>
                             <Block>
                             <Button disabled={editMode} variant='outlined' endIcon={<Create />} sx={{marginRight:'10px'}} onClick={() => {
