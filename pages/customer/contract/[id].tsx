@@ -20,6 +20,7 @@ import Loading from '../../../components/common/loading';
 import { Create, BookmarkBorder } from '@mui/icons-material';
 import { Block } from '../../../components/common/block';
 import PaymentPeriod from '../../../components/common/paymentPeriod';
+import roundToTwo from '../../../utils/roundto';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
@@ -218,7 +219,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
                   <Box>
                     <Typography variant="body1">Insurance Premium</Typography>{' '}
                     <Typography variant="body2">
-                      {`${currency} ${contractPrice}`}
+                      {`${currency} ${roundToTwo(contractPrice)}`}
                     </Typography>
                   </Box>
                   <Box>

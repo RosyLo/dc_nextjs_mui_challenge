@@ -35,6 +35,7 @@ import { Block } from '../../../components/common/block';
 import { getAllContracts } from '../../api/customer/contract/index';
 import { Text, Title } from '../../../components/common/text';
 import homeOwner from '../../../components/asset/home_owner@2x.png';
+import roundToTwo from '../../../utils/roundto';
 
 interface ContractInfo {
   type: string;
@@ -298,7 +299,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
                           </Stack>
                           <Stack spacing={2}>
                             <Typography variant="body2">Price</Typography>
-                            <Box>{contract.price}</Box>
+                            <Box>{roundToTwo(contract.price)}</Box>
                           </Stack>
                         </Stack>
                       </CardContent>
