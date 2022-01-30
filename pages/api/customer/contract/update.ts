@@ -3,8 +3,6 @@ import { PrismaClient, Contract, PaymentPeriod } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-//todo: should be receive form change api
-
 export const update = (
   id: string,
   paymentPeriod: PaymentPeriod,

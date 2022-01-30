@@ -24,15 +24,24 @@ export const calcPrice = (
     }
     return updatedPrice;
   };
-  let result = getPrice(paymentPeriod, price, updatedPaymentPeriod);
+  const result = getPrice(paymentPeriod, price, updatedPaymentPeriod);
   return result;
 };
 
-export default function handler(
+export default function contractHandler(
   req: NextApiRequest,
   res: NextApiResponse<{ price: number }>
 ) {
-  const { paymentPeriod, price, updatePaymentPeriod } = JSON.parse(req.body);
-  const result = calcPrice(paymentPeriod, price, updatePaymentPeriod);
-  res.status(200).json({ price: result });
+  const { method } = req;
+  switch (method) {
+    case 'POST':
+      const { paymentPeriod, price, updatePaymentPeriod } = JSON.parse(
+        req.body
+      );
+      const result = calcPrice(paymentPeriod, price, updatePaymentPeriod);
+      res.status(200).json({ price: result });
+    default:
+      res.setHeader('Allow', ['POST']);
+      res.status(405).end(`Method ${method} Not Allowed`);
+  }
 }
