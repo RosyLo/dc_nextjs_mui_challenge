@@ -4,17 +4,10 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { Contract } from '@prisma/client';
 import Container from '@mui/material/Container';
-import { getContractById } from '../../api/customer/contract/[id]';
-import { getCustomer } from '../../api/customer/profile/[id]';
+import { getContractById } from '../../../service/contract/index';
+import { getCustomer } from '../../../service/customer';
 import Header from '../../../components/layout/header';
-import {
-  Box,
-  Stack,
-  Card,
-  Typography,
-  Button,
-  NativeSelect,
-} from '@mui/material';
+import { Box, Stack, Card, Typography, Button } from '@mui/material';
 import homeOwner from '../../../components/asset/home_owner@2x.png';
 import Loading from '../../../components/common/loading';
 import { Create, BookmarkBorder } from '@mui/icons-material';
@@ -120,6 +113,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
   };
 
   const getContractDetails = (type: string) => {
+    // todo: here is definitely not the best way to deal with it, I think the ultimate way is to restructure the data.
     const getDetailGroup = () => {
       const {
         floors,
@@ -168,7 +162,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
       }
     };
 
-    let detail = getDetailGroup();
+    const detail = getDetailGroup();
 
     return (
       <>

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
 import Header from '../components/layout/header';
-import { getCustomer } from './api/customer/profile/[id]';
+import { getCustomer } from '../service/customer';
 
 import { GetServerSideProps } from 'next';
 
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // You will notice, that there is not login required.
   // We hardcoded jane for demo purposes :-)
   // Don't worry about login.
-  let customer = await getCustomer();
+  const customer = await getCustomer();
   return {
     props: {
       user: {

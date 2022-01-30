@@ -28,11 +28,10 @@ import {
   PedalBike,
   MapsHomeWork,
 } from '@mui/icons-material';
-import { getCustomer } from '../../api/customer/profile/[id]';
-import { getAddress } from '../../api/customer/profile/address';
+import { getCustomer, getAddress } from '../../../service/customer';
 import Header from '../../../components/layout/header';
 import { Block } from '../../../components/common/block';
-import { getAllContracts } from '../../api/customer/contract/index';
+import { getAllContracts } from '../../../service/contract/index';
 import { Text, Title } from '../../../components/common/text';
 import homeOwner from '../../../components/asset/home_owner@2x.png';
 import roundToTwo from '../../../utils/roundto';
@@ -134,7 +133,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
             />
             <Box sx={{ marginLeft: '20px' }}>
               <Typography variant="body1" component="div">
-                {lastname} {firstname}
+                {firstname} {lastname}
               </Typography>
               <Typography variant="subtitle1" component="div">
                 {birthdate}
