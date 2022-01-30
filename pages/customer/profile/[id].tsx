@@ -4,30 +4,28 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import { Contract } from '@prisma/client';
+// -- mui component -- //
 import Container from '@mui/material/Container';
-import {
-  Box,
-  Avatar,
-  MenuList,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Grid,
-  Stack,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@mui/material';
-import {
-  Email,
-  Home,
-  ArrowForwardIos,
-  BedroomParent,
-  PedalBike,
-  MapsHomeWork,
-} from '@mui/icons-material';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+// -- mui icon -- //
+import Email from '@mui/icons-material/Email';
+import Home from '@mui/icons-material/Home';
+import BedroomParent from '@mui/icons-material/BedroomParent';
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
+import PedalBike from '@mui/icons-material/PedalBike';
+import MapsHomeWork from '@mui/icons-material/MapsHomeWork';
 import { getCustomer, getAddress } from '../../../service/customer';
 import Header from '../../../components/layout/header';
 import { Block } from '../../../components/common/block';

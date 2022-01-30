@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NativeSelect } from '@mui/material';
+import NativeSelect from '@mui/material/NativeSelect';
 
 const handlePeriodChange = async (
   paymentPeriod: string,

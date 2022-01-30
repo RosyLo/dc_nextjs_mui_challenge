@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Header from '../components/layout/header';
 import { getCustomer } from '../service/customer';
 
@@ -33,7 +34,7 @@ const Home: NextPage<HomeProps> = ({ user }) => {
     <>
       <Header user={user} />
       <Container>
-        <Container sx={{ m: 2, mt: 6 }}>
+        <Box sx={{ m: 2, mt: 6 }}>
           <Typography variant="h2" align="center">
             Welcome to DwellersClub!
           </Typography>
@@ -41,7 +42,7 @@ const Home: NextPage<HomeProps> = ({ user }) => {
             Please click on your avatar at the top right to display your
             profile.
           </Typography>
-        </Container>
+        </Box>
       </Container>
     </>
   );

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
-import ButtonBase from '@mui/material/ButtonBase';
+import Button from '@mui/material/ButtonBase';
 import Divider from '@mui/material/Divider';
 
 type HeaderProps = {
@@ -51,9 +51,9 @@ export default function Header({
       </Head>
       <Container>&nbsp;</Container>
       <Box mb={3} mt={1}>
-        <Grid container display="flex" flexDirection="row">
+        <Grid container>
           <Grid item xs={6}>
-            <ButtonBase onClick={showHome}>
+            <Button onClick={showHome}>
               <Box
                 component="img"
                 src="/images/dcLogoBlack.png"
@@ -63,14 +63,14 @@ export default function Header({
                   maxWidth: { xs: 350, md: 250 },
                 }}
               />
-            </ButtonBase>
+            </Button>
           </Grid>
           <Grid item xs={5}></Grid>
           <Grid item xs={1} justifyContent="flex-end">
             <Box>
-              <ButtonBase onClick={showProfile}>
+              <Button onClick={showProfile}>
                 <Avatar alt="You" src={user.avatar} />
-              </ButtonBase>
+              </Button>
             </Box>
           </Grid>
         </Grid>
