@@ -3,7 +3,6 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
-import { Contract } from '@prisma/client';
 // -- mui component -- //
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -33,25 +32,13 @@ import getContractGroups from '@/provider/profile/getContractGroups';
 import Navigator, {
   getSelectContractGroup,
   InsuranceGroup,
+  ContractGroup,
+  ContractData,
 } from '@/components/layout/navigator';
-
-interface ContractInfo {
-  type: string;
-  typeName?: string;
-  data?: ContractData[];
-}
-
-interface ContractData extends Contract {
-  typeName: string;
-}
 
 type UserProps = {
   user?: any;
-  contracts?: {
-    homeOwnerContracts: ContractInfo;
-    homeContentContracts: ContractInfo;
-    bikeContracts: ContractInfo;
-  };
+  contracts?: ContractGroup;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -155,7 +142,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
         <Box sx={{ width: '70%', padding: '50px' }}>
           <Title>{displayContractGroup.typeName}</Title>
           <Grid container sx={{ marginTop: '20px' }}>
-            {displayContractGroup.data.map((contract) => {
+            {displayContractGroup?.data.map((contract: ContractData) => {
               const { typeName, paymentPeriod, price } = contract;
               return (
                 <Grid item key={cardId}>

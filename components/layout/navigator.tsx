@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Contract } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,7 +11,7 @@ import BedroomParent from '@mui/icons-material/BedroomParent';
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
 import PedalBike from '@mui/icons-material/PedalBike';
 
-import { Text } from '../../components/common/text';
+import { Text } from '@/components/common/text';
 
 export enum InsuranceGroup {
   HomeOwner,
@@ -18,7 +19,26 @@ export enum InsuranceGroup {
   Bike,
 }
 
-export const getSelectContractGroup = (contracts, choosedInsuranceGroup) => {
+export interface ContractData extends Contract {
+  typeName: string;
+}
+
+interface ContractInfo {
+  type: string;
+  typeName?: string;
+  data?: ContractData[];
+}
+
+export interface ContractGroup {
+  homeOwnerContracts: ContractInfo;
+  homeContentContracts: ContractInfo;
+  bikeContracts: ContractInfo;
+}
+
+export const getSelectContractGroup = (
+  contracts: ContractGroup | undefined,
+  choosedInsuranceGroup: InsuranceGroup
+) => {
   const { homeOwnerContracts, homeContentContracts, bikeContracts } = contracts;
   switch (choosedInsuranceGroup) {
     case InsuranceGroup.HomeOwner:
