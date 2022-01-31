@@ -41,7 +41,6 @@ export default function contractHandler(
       const result = calcPrice(paymentPeriod, price, updatePaymentPeriod);
       res.status(200).json({ price: result });
     default:
-      res.setHeader('Allow', ['POST']);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

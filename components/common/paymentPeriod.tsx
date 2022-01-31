@@ -1,14 +1,18 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import NativeSelect from '@mui/material/NativeSelect';
+import Loading from '../common/loading';
 
 const handlePeriodChange = async (
   paymentPeriod: string,
   price: number,
   updatePaymentPeriod: string,
   setContractPrice: (price: number) => void,
-  setPeriod: (updatePaymentPeriod: string) => void
+  setPeriod: (updatePaymentPeriod: string) => void,
+  setIsLoading: (isLoading: boolean) => void,
+  isLoading: boolean
 ) => {
   try {
+    setIsLoading(true);
     const result = await fetch('/api/customer/contract/calc_price', {
       method: 'POST',
       mode: 'cors',
@@ -25,6 +29,7 @@ const handlePeriodChange = async (
     //todo: dialog warns
     console.error('error', error);
   } finally {
+    setIsLoading(false);
   }
 };
 
@@ -43,23 +48,29 @@ const PaymentPeriod: FC<PaymentPeriodProps> = ({
   setContractPrice,
   setPeriod,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   return (
-    <NativeSelect
-      inputProps={register('paymentPeriod')}
-      defaultValue={period}
-      onChange={(e) => {
-        handlePeriodChange(
-          period,
-          contractPrice,
-          e.target.value,
-          setContractPrice,
-          setPeriod
-        );
-      }}
-    >
-      <option value={'MONTH'}>Month</option>
-      <option value={'YEAR'}>Year</option>
-    </NativeSelect>
+    <>
+      <NativeSelect
+        inputProps={register('paymentPeriod')}
+        defaultValue={period}
+        onChange={(e) => {
+          handlePeriodChange(
+            period,
+            contractPrice,
+            e.target.value,
+            setContractPrice,
+            setPeriod,
+            setIsLoading,
+            isLoading
+          );
+        }}
+      >
+        <option value={'MONTH'}>Month</option>
+        <option value={'YEAR'}>Year</option>
+      </NativeSelect>
+      <Loading isLoading={isLoading}></Loading>
+    </>
   );
 };
 

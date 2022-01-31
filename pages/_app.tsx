@@ -1,7 +1,10 @@
+import { useState, useEffect } from 'react';
 import '../styles/globals.css';
 import { ThemeProvider, Theme } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
+import Loading from '../components/common/loading';
 
 const theme: Theme = createTheme({
   palette: {
@@ -32,10 +35,31 @@ const theme: Theme = createTheme({
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const [isLoading, setIsPageLoading] = useState<boolean>(false);
+  useEffect(() => {
+    const handleStart = () => {
+      setIsPageLoading(true);
+    };
+    const handleComplete = () => {
+      setIsPageLoading(false);
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+  }, [router]);
+
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <>
+      {isLoading ? (
+        <Loading isLoading={isLoading} />
+      ) : (
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      )}
+    </>
   );
 }
 

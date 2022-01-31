@@ -96,6 +96,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (formData) => {
+    setIsLoading(true);
     try {
       await fetch(
         `/api/customer/contract/update?id=${contractId}&pp=${formData.paymentPeriod}`,
@@ -114,6 +115,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
       //todo : dialog for warning
       console.error('error', error);
     } finally {
+      setIsLoading(false);
     }
   };
 
