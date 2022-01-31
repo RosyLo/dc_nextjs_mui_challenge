@@ -44,12 +44,12 @@ const navigatorContent = [
   },
   {
     type: InsuranceGroup.HomeContent,
-    icon: <Home fontSize="small" color="info" />,
+    icon: <BedroomParent fontSize="small" color="info" />,
     text: 'Home Content',
   },
   {
     type: InsuranceGroup.Bike,
-    icon: <Home fontSize="small" color="info" />,
+    icon: <PedalBike fontSize="small" color="info" />,
     text: 'Bike',
   },
 ];
