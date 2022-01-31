@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { NextPage, GetServerSideProps } from 'next';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
 import { Contract } from '@prisma/client';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -136,34 +137,54 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
 
       switch (type) {
         case 'HOME_OWNER':
-          return {
-            firstItemT: 'Floors',
-            firstItemV: floors,
-            secondItemT: 'Roof Type',
-            secondItemV: roof_type,
-            thirdItemT: 'Square Meter',
-            thirdItemV: square_meter,
-          };
+          return [
+            {
+              Name: 'Floors',
+              Value: floors,
+            },
+            {
+              Name: 'Roof Type',
+              Value: roof_type,
+            },
+            {
+              Name: 'Square Meter',
+              Value: square_meter,
+            },
+          ];
         case 'HOME_CONTENT':
-          return {
-            firstItemT: 'Has Jewelry',
-            firstItemV: jewelry ? 'true' : 'false',
-            secondItemT: 'Max Value',
-            secondItemV: max_value,
-            thirdItemT: 'Square Meter ',
-            thirdItemV: square_meter,
-          };
+          return [
+            {
+              Name: 'Has Jewelry',
+              Value: jewelry ? 'true' : 'false',
+            },
+            {
+              Name: 'Max Value',
+              Value: max_value,
+            },
+            {
+              Name: 'Square Meter',
+              Value: square_meter,
+            },
+          ];
         case 'BIKE':
-          return {
-            firstItemT: 'Brand',
-            firstItemV: brand,
-            secondItemT: 'Electric',
-            secondItemV: electric,
-            thirdItemT: 'BikeValue',
-            thirdItemV: bikeValue,
-            fourthItemT: 'Frame Size In Inch',
-            fourthItemV: frameSizeInInch,
-          };
+          return [
+            {
+              Name: 'Brand',
+              Value: brand,
+            },
+            {
+              Name: 'Electric',
+              Value: electric,
+            },
+            {
+              Name: 'BikeValue',
+              Value: bikeValue,
+            },
+            {
+              Name: 'Frame Size In Inch',
+              Value: frameSizeInInch,
+            },
+          ];
         default:
           return null;
       }
@@ -173,18 +194,12 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
 
     return (
       <>
-        <Box>
-          <Typography variant="body1">{detail?.firstItemT}</Typography>
-          <Typography variant="body2">{detail?.firstItemV}</Typography>
-        </Box>
-        <Box>
-          <Typography variant="body1">{detail?.secondItemT}</Typography>
-          <Typography variant="body2">{detail?.secondItemV}</Typography>
-        </Box>
-        <Box>
-          <Typography variant="body1">{detail?.thirdItemT}</Typography>
-          <Typography variant="body2">{detail?.thirdItemV}</Typography>
-        </Box>
+        {detail?.map((data) => (
+          <Box key={uuidv4()}>
+            <Typography variant="body1">{data?.Name}</Typography>
+            <Typography variant="body2">{data?.Value}</Typography>
+          </Box>
+        ))}
       </>
     );
   };
