@@ -8,10 +8,6 @@ import { Contract } from '@prisma/client';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import MenuList from '@mui/material/MenuList';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -19,12 +15,12 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 // -- mui icon -- //
 import Email from '@mui/icons-material/Email';
-import Home from '@mui/icons-material/Home';
-import BedroomParent from '@mui/icons-material/BedroomParent';
-import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos';
-import PedalBike from '@mui/icons-material/PedalBike';
 import MapsHomeWork from '@mui/icons-material/MapsHomeWork';
 import { getCustomer, getAddress } from '../../../service/customer';
 import Header from '../../../components/layout/header';
@@ -34,6 +30,10 @@ import { Text, Title } from '../../../components/common/text';
 import homeOwner from '../../../components/asset/home_owner@2x.png';
 import roundToTwo from '../../../utils/roundto';
 import getContractGroups from '../../../provider/profile/getContractGroups';
+import Navigator, {
+  getSelectContractGroup,
+  InsuranceGroup,
+} from '../../../components/layout/navigator';
 
 interface ContractInfo {
   type: string;
@@ -84,36 +84,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-enum InsuranceGroup {
-  HomeOwner,
-  HomeContent,
-  Bike,
-}
-
 const User: NextPage<UserProps> = ({ user, contracts }) => {
-  const cardId = `${uuidv4()}`;
+  const cardId = `card - ${uuidv4()}`;
 
   const { avatar, firstname, lastname, birthdate, email, address } = user;
   const { number, street, city, country, postcode } = address;
-  const { homeOwnerContracts, homeContentContracts, bikeContracts } = contracts;
 
   const [choosedInsuranceGroup, setChoosedInsuranceGroup] = useState(
     InsuranceGroup.HomeOwner
   );
 
-  const getSelectContractGroup = () => {
-    switch (choosedInsuranceGroup) {
-      case InsuranceGroup.HomeOwner:
-        return homeOwnerContracts;
-      case InsuranceGroup.HomeContent:
-        return homeContentContracts;
-      case InsuranceGroup.Bike:
-        return bikeContracts;
-      default:
-        return homeOwnerContracts;
-    }
-  };
-  const displayContractGroup = getSelectContractGroup();
+  const displayContractGroup = getSelectContractGroup(
+    contracts,
+    choosedInsuranceGroup
+  );
 
   return (
     <Container>
@@ -165,49 +149,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
                 </ListItemText>
               </MenuItem>
             </MenuList>
-          </Box>
-          <Box>
-            <MenuList>
-              <MenuItem
-                onClick={() => {
-                  setChoosedInsuranceGroup(InsuranceGroup.HomeOwner);
-                }}
-              >
-                <ListItemIcon>
-                  <Home fontSize="small" color="info" />
-                </ListItemIcon>
-                <ListItemText>
-                  <Text color={'common.white'}>Home Owner</Text>
-                </ListItemText>
-                <ArrowForwardIos fontSize="small" color="info" />
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setChoosedInsuranceGroup(InsuranceGroup.HomeContent);
-                }}
-              >
-                <ListItemIcon>
-                  <BedroomParent fontSize="small" color="info" />
-                </ListItemIcon>
-                <ListItemText>
-                  <Text color={'common.white'}>Home Content</Text>
-                </ListItemText>
-                <ArrowForwardIos fontSize="small" color="info" />
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setChoosedInsuranceGroup(InsuranceGroup.Bike);
-                }}
-              >
-                <ListItemIcon>
-                  <PedalBike fontSize="small" color="info" />
-                </ListItemIcon>
-                <ListItemText>
-                  <Text color={'common.white'}>Bike</Text>
-                </ListItemText>
-                <ArrowForwardIos fontSize="small" color="info" />
-              </MenuItem>
-            </MenuList>
+            <Navigator setChoosedInsuranceGroup={setChoosedInsuranceGroup} />
           </Box>
         </Stack>
         <Box sx={{ width: '70%', padding: '50px' }}>
@@ -217,7 +159,7 @@ const User: NextPage<UserProps> = ({ user, contracts }) => {
               const { typeName, paymentPeriod, price } = contract;
               return (
                 <Grid item key={cardId}>
-                  <Link href={`/../customer/contract/${contract.id}`}>
+                  <Link href={`/../customer/contract/${contract.id}`} passHref>
                     <Card
                       sx={{
                         maxWidth: 345,
