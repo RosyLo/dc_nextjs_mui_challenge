@@ -22,18 +22,18 @@ import ListItemText from '@mui/material/ListItemText';
 // -- mui icon -- //
 import Email from '@mui/icons-material/Email';
 import MapsHomeWork from '@mui/icons-material/MapsHomeWork';
-import { getCustomer, getAddress } from '../../../service/customer';
-import Header from '../../../components/layout/header';
-import { Block } from '../../../components/common/block';
-import { getAllContracts } from '../../../service/contract/index';
-import { Text, Title } from '../../../components/common/text';
-import homeOwner from '../../../components/asset/home_owner@2x.png';
-import roundToTwo from '../../../utils/roundto';
-import getContractGroups from '../../../provider/profile/getContractGroups';
+import { getCustomer, getAddress } from '@/service/customer';
+import Header from '@/components/layout/header';
+import { Block } from '@/components/common/block';
+import { getAllContracts } from '@/service/contract/index';
+import { Text, Title } from '@/components/common/text';
+import homeOwner from '@/components/asset/home_owner@2x.png';
+import roundToTwo from '@/utils/roundto';
+import getContractGroups from '@/provider/profile/getContractGroups';
 import Navigator, {
   getSelectContractGroup,
   InsuranceGroup,
-} from '../../../components/layout/navigator';
+} from '@/components/layout/navigator';
 
 interface ContractInfo {
   type: string;

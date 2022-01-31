@@ -12,14 +12,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Create from '@mui/icons-material/Create';
 import BookmarkBorder from '@mui/icons-material/BookmarkBorder';
-import { getContractById } from '../../../service/contract/index';
-import { getCustomer } from '../../../service/customer';
-import Header from '../../../components/layout/header';
-import homeOwner from '../../../components/asset/home_owner@2x.png';
-import Loading from '../../../components/common/loading';
-import { Block } from '../../../components/common/block';
-import PaymentPeriod from '../../../components/common/paymentPeriod';
-import roundToTwo from '../../../utils/roundto';
+import { getContractById } from '@/service/contract/index';
+import { getCustomer } from '@/service/customer';
+import Header from '@/components/layout/header';
+import homeOwner from '@/components/asset/home_owner@2x.png';
+import Loading from '@/components/common/loading';
+import { Block } from '@/components/common/block';
+import PaymentPeriod from '@/components/common/paymentPeriod';
+import roundToTwo from '@/utils/roundto';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;

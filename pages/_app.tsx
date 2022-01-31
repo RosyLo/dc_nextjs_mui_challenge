@@ -4,7 +4,7 @@ import { ThemeProvider, Theme } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import Loading from '../components/common/loading';
+import Loading from '@/components/common/loading';
 
 const theme: Theme = createTheme({
   palette: {
