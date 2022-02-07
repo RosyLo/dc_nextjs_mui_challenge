@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         type: contract?.type,
         paymentPeriod: contract?.paymentPeriod,
         price: contract?.price,
-        createdAt: contract?.createdAt.toLocaleDateString('en-US', {
+        createdAt: contract?.createdAt.toLocaleDateString('de-DE', {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
@@ -174,7 +174,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
             },
             {
               Name: 'Electric',
-              Value: electric,
+              Value: electric ? 'true' : 'false',
             },
             {
               Name: 'BikeValue',
@@ -215,7 +215,7 @@ const Contract: NextPage<ContractProps> = ({ user, contract }) => {
               alt="Picture of the author"
               width="350px"
               height="300px"
-            ></Image>
+            />
           </Box>
           <Box sx={{ p: '20px' }}>
             <form onSubmit={handleSubmit(onSubmit)}>
